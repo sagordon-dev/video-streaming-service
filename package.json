@@ -1,19 +1,5 @@
 {
-  "name": "video-streaming-service",
-  "version": "1.0.0",
-  "main": "./src/index.js",
-  "scripts": {
-    "start": "node ./src/index.js",
-    "start:dev": "nodemon ./src/index.js"
-  },
-  "keywords": [],
-  "author": "Scott Gordon",
-  "license": "MIT",
-  "descripton": "A microservices video streaming service",
   "dependencies": {
-    "express": "^4.19.2"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.22"
+    "@azure/storage-blob": "^12.23.0"
   }
 }
