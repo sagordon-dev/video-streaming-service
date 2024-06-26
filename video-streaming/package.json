@@ -1,14 +1,14 @@
 {
   "name": "video-streaming",
   "version": "1.0.0",
-  "description": "",
+  "description": "Video strreaming microservice",
   "main": "./src/index.js",
   "scripts": {
     "start": "node ./src/index.js",
-    "start:dev": "nodemon ./src/index.js"
+    "start:dev": "nodemon --legacy-watch ./src/index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Scott Gordon",
   "license": "MIT",
   "dependencies": {
     "express": "^5.0.0-beta.1",

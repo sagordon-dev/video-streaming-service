@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/sagordon-dev/video-streaming-service/issues"
   },
-  "homepage": "https://github.com/sagordon-dev/video-streaming-service#readme"
+  "homepage": "https://github.com/sagordon-dev/video-streaming-service#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
 }
