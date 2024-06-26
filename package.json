@@ -1,5 +1,24 @@
 {
   "dependencies": {
-    "@azure/storage-blob": "^12.23.0"
-  }
+    "@azure/storage-blob": "^12.23.0",
+    "mongodb": "^6.7.0"
+  },
+  "name": "video-streaming-service",
+  "description": "A microservices app that runs a video streaming service.  Created to demo the wide range of tools and skills needed  to properly deploy a microservices app to the cloud.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sagordon-dev/video-streaming-service.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sagordon-dev/video-streaming-service/issues"
+  },
+  "homepage": "https://github.com/sagordon-dev/video-streaming-service#readme"
 }
