@@ -18,7 +18,7 @@ services:
 
   video-streaming:
     image: video-streaming
-    build:
+    build: 
       context: ./video-streaming
       dockerfile: Dockerfile-dev
     container_name: video-streaming
@@ -38,7 +38,7 @@ services:
 
   history:
     image: history
-    build:
+    build: 
       context: ./history
       dockerfile: Dockerfile-dev
     container_name: history
@@ -46,7 +46,7 @@ services:
       - /tmp/history/npm-cache:/root/.npm:z
       - ./history/src:/usr/src/app/src:z
     ports:
-      - "4002:80"
+     - "4002:80"
     environment:
       - PORT=80
       - RABBIT=amqp://guest:guest@rabbit:5672
