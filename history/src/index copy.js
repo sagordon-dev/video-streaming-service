@@ -1,6 +1,6 @@
 const express = require("express");
 const mongodb = require("mongodb");
-const amqp = require("amqplib");
+const amqp = require('amqplib');
 
 if (!process.env.PORT) {
     throw new Error("Please specify the port number for the HTTP server with the environment variable PORT.");
@@ -11,7 +11,7 @@ if (!process.env.DBHOST) {
 }
 
 if (!process.env.DBNAME) {
-    throw new Error("Please specify the name of the database using environment variable DBNAME.");
+    throw new Error("Please specify the name of the database using environment variable DBNAME");
 }
 
 if (!process.env.RABBIT) {
@@ -22,49 +22,71 @@ const PORT = process.env.PORT;
 const DBHOST = process.env.DBHOST;
 const DBNAME = process.env.DBNAME;
 const RABBIT = process.env.RABBIT;
-// Application entry point.
 
+//
+// Application entry point.
+//
 async function main() {
 
     const app = express();
 
-    // Enable JSON body parsing for HTTP requests.
-    app.use(express.json());
+    //
+    // Enables JSON body parsing for HTTP requests.
+    //
+    app.use(express.json()); 
 
-    // Connect to the database server.
+    //
+    // Connects to the database server.
+    //
     const client = await mongodb.MongoClient.connect(DBHOST);
 
-    // Get database for this microservice.
-    const db = client.db(DBNAME);
+    //
+    // Gets the database for this microservice.
+    //
+    const db  = client.db(DBNAME);
 
-    // Get collection for storing video view history
+    //
+    // Gets the collection for storing video viewing history.
+    //
     const historyCollection = db.collection("history");
 
-    // Connect to RabbitMQ server.
-    const messagingConnection = await amqp.connect(RABBIT);
+    //
+    // Connects to the RabbitMQ server.
+    //
+    const messagingConnection = await amqp.connect(RABBIT); 
 
     console.log("Connected to RabbitMQ.");
 
-    // Create message channel
-    const messageChannel = await messagingConnection.createChannel();
-
-    await messageChannel.assertQueue("viewed", {})
+    //
+    // Creates a RabbitMQ messaging channel.
+    //
+    const messageChannel = await messagingConnection.createChannel(); 
+       
+    //
+    // Asserts that we have a "viewed" queue.
+    //
+	await messageChannel.assertQueue("viewed", {}) 
 
     console.log(`Created "viewed" queue.`);
-
+    
+    //
+    // Start receiving messages from the "viewed" queue.
+    //
     await messageChannel.consume("viewed", async (msg) => {
         console.log("Received a 'viewed' message");
 
-        const parsedMsg = JSON.parse(msg.content.toString());
-
-        await historyCollection.insertOne({ videoPath: parsedMsg.videoPath });
+        const parsedMsg = JSON.parse(msg.content.toString()); // Parse the JSON message.
+        
+        await historyCollection.insertOne({ videoPath: parsedMsg.videoPath }); // Record the "view" in the database.
 
         console.log("Acknowledging message was handled.");
-
-        messageChannel.ack(msg);
+                
+        messageChannel.ack(msg); // If there is no error, acknowledge the message.
     });
 
-    // HTTP GET route to retrieve video viewing history
+    //
+    // HTTP GET route to retrieve video viewing history.
+    //
     app.get("/history", async (req, res) => {
         const skip = parseInt(req.query.skip);
         const limit = parseInt(req.query.limit);
@@ -75,7 +97,9 @@ async function main() {
         res.json({ history });
     });
 
+    //
     // Starts the HTTP server.
+    //
     app.listen(PORT, () => {
         console.log("Microservice online.");
     });
