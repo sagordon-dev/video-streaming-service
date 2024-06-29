@@ -11,6 +11,7 @@
     "author": "Scott Gordon",
     "license": "MIT",
     "dependencies": {
+        "amqplib": "^0.10.4",
         "express": "^5.0.0-beta.1",
         "mongodb": "^6.0.0"
     },
