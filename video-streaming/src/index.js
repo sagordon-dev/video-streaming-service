@@ -12,7 +12,7 @@ function sendViewedMessage(videoPath) {
     const postOptions = {
         method: "POST",
         headers: {
-            "Content-Type": "applicaton/json",
+            "Content-Type": "application/json",
         },
     };
 
@@ -58,7 +58,7 @@ async function main() {
     });
 
     app.listen(PORT, () => {
-        console.log("Microservices online.");
+        console.log("Microservice online.");
     });
 }
 
