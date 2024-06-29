@@ -1,11 +1,11 @@
 services:
 
-  # db:
-  #   image: mongo:7.0.0
-  #   container_name: db
-  #   ports:
-  #     - "4000:27017"
-  #   restart: always
+  db:
+    image: mongo:7.0.0
+    container_name: db
+    ports:
+      - "4000:27017"
+    restart: always
 
   video-streaming:
     image: video-streaming
@@ -51,5 +51,9 @@ services:
       - "4001:80"
     environment:
       - PORT=80
+      - DBHOST=mongodb://db:27017
+      - DBNAME=history
       - NODE_ENV=development
+    depends_on:
+      - db
     restart: "no"
